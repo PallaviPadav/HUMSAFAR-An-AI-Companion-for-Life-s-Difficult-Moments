@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>♡ HUMSAFAR | AI Companion</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         FULL PAGE BACKGROUND
+         Image: static/images/background.png
+    ====================================================== -->
+
+    <div class="background"></div>
+
+    <div class="background-overlay"></div>
+
+
+
+    <!-- =====================================================
+         MAIN HERO SECTION
+    ====================================================== -->
+
+    <main class="hero">
+
+
+        <!-- =================================================
+             LEFT SIDE CONTENT
+        ================================================== -->
+
+        <section class="hero-content">
+
+
+            <!-- =============================================
+                 HUMSAFAR BRAND
+            ============================================== -->
+
+            <div class="brand">
+
+                <span class="heart">
+                    ♡
+                </span>
+
+                <span class="brand-name">
+                    HUMSAFAR
+                </span>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 TAGLINE
+            ============================================== -->
+
+            <h1>
+                AI Companion for
+                <br>
+                Life's Difficult Moments
+            </h1>
+
+
+
+            <!-- =============================================
+                 COMPASSIONATE MESSAGE
+            ============================================== -->
+
+            <div class="intro-message">
+
+                <p class="main-message">
+                    You deserve to be heard.
+                </p>
+
+                <p class="main-message">
+                    You don't have to face it alone.
+                </p>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 SUPPORTING MESSAGE
+            ============================================== -->
+
+            <p class="description">
+
+                Talk freely. Be yourself.
+                <br>
+
+                I'm here to listen, understand,
+                and support you.
+
+            </p>
+
+
+
+            <!-- =============================================
+                 CHATBOT BUTTON
+            ============================================== -->
+
+            <a href="{{ url_for('chat_page') }}" class="chat-button">
+
+                <span>
+                    Talk to HUMSAFAR
+                </span>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <section class="compassion-section">
+
+
+            <!-- =============================================
+                 SOFT GLOW BEHIND COMPASSION IMAGE
+            ============================================== -->
+
+            <div class="compassion-glow"></div>
+
+
+
+            <!-- =============================================
+                 MAIN COMPASSION IMAGE
+
+                 Image:
+                 static/images/bg.png
+            ============================================== -->
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='images/bg.png'
+                ) }}"
+                alt="Compassionate AI companion"
+                class="compassion-image"
+            >
+
+
+
+            <!-- =================================================
+                 THREE FEATURE CARDS
+            ================================================== -->
+
+            <div class="features">
+
+
+                <!-- =========================================
+                     LISTENING
+                ========================================== -->
+
+                <div class="feature-card">
+
+                    <div class="feature-image">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/listening.png'
+                            ) }}"
+                            alt="Listening"
+                        >
+
+                    </div>
+
+
+                    <h3>
+                        Listening
+                    </h3>
+
+
+                    <p>
+                        A safe space
+                        to be heard.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     COMPASSION
+                ========================================== -->
+
+                <div class="feature-card">
+
+                    <div class="feature-image">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/companionship.png'
+                            ) }}"
+                            alt="Compassion"
+                        >
+
+                    </div>
+
+
+                    <h3>
+                        Compassion
+                    </h3>
+
+
+                    <p>
+                        You are understood
+                        and cared for.
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     MOTIVATION
+                ========================================== -->
+
+                <div class="feature-card">
+
+                    <div class="feature-image">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/motivation.png'
+                            ) }}"
+                            alt="Motivation"
+                        >
+
+                    </div>
+
+
+                    <h3>
+                        Motivation
+                    </h3>
+
+
+                    <p>
+                        Helping you find
+                        strength and move forward.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM MESSAGE
+    ====================================================== -->
+
+    <div class="bottom-message">
+
+        <span class="small-heart">
+            ♡
+        </span>
+
+        <span>
+            You don't have to face difficult moments alone.
+        </span>
+
+    </div>
+
+
+</body>
+
+</html>

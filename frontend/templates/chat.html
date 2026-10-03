@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HUMSAFAR</title>
+
+
+    <style>
+
+        /* ================================
+           GLOBAL
+        ================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+            padding: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-image:
+                linear-gradient(
+                    rgba(20, 20, 30, 0.28),
+                    rgba(20, 20, 30, 0.28)
+                ),
+                url("/static/images/chat_bckground.png");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* ================================
+           CHAT CONTAINER
+        ================================= */
+
+        .chat-container {
+
+            width: 90%;
+            max-width: 900px;
+
+            height: 85vh;
+
+            display: flex;
+            flex-direction: column;
+
+            overflow: hidden;
+
+            border-radius: 24px;
+
+            background:
+                rgba(20, 20, 30, 0.42);
+
+            backdrop-filter:
+                blur(12px);
+
+            -webkit-backdrop-filter:
+                blur(12px);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.18);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .chat-header {
+
+            padding: 22px 25px;
+
+            text-align: center;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+        }
+
+
+        .chat-header h1 {
+
+            margin: 0;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffd6a5,
+                    #ff9f9f,
+                    #ffc6d9
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            background-clip: text;
+
+            text-shadow:
+                0 2px 18px
+                rgba(255, 170, 170, 0.25);
+        }
+
+
+        .chat-header p {
+
+            margin: 7px 0 0;
+
+            font-size: 14px;
+
+            font-weight: 400;
+
+            letter-spacing: 0.4px;
+
+            color:
+                rgba(255, 240, 225, 0.92);
+
+            text-shadow:
+                0 1px 8px
+                rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* ================================
+           MESSAGE AREA
+        ================================= */
+
+        .messages {
+
+            flex: 1;
+
+            padding: 25px;
+
+            overflow-y: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+        }
+
+
+        /* ================================
+           MESSAGE BUBBLES
+        ================================= */
+
+        .message {
+
+            max-width: 70%;
+
+            padding: 12px 16px;
+
+            border-radius: 18px;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+
+            word-wrap: break-word;
+
+            color: white;
+        }
+
+
+        /* USER */
+
+        .user-message {
+
+            align-self: flex-end;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(220, 90, 120, 0.95),
+                    rgba(170, 70, 120, 0.95)
+                );
+
+            border-bottom-right-radius: 5px;
+        }
+
+
+        /* AI */
+
+        .ai-message {
+
+            align-self: flex-start;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
+            border-bottom-left-radius: 5px;
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+        }
+
+
+        /* ================================
+           AI RESPONSE FORMATTING
+        ================================= */
+
+        .ai-content {
+
+            line-height: 1.6;
+        }
+
+
+        .ai-content p {
+
+            margin:
+                0 0 12px;
+        }
+
+
+        .ai-content p:last-child {
+
+            margin-bottom: 0;
+        }
+
+
+        .ai-content ol {
+
+            margin:
+                8px 0 14px;
+
+            padding-left: 24px;
+        }
+
+
+        .ai-content ul {
+
+            margin:
+                8px 0 14px;
+
+            padding-left: 24px;
+        }
+
+
+        .ai-content li {
+
+            margin-bottom: 10px;
+
+            padding-left: 3px;
+        }
+
+
+        .ai-content li:last-child {
+
+            margin-bottom: 0;
+        }
+
+
+        .ai-content strong {
+
+            font-weight: 600;
+
+            color:
+                #ffe1e8;
+        }
+
+
+        /* ================================
+           USER IMAGE
+        ================================= */
+
+        .user-image {
+
+            display: block;
+
+            max-width: 220px;
+            max-height: 220px;
+
+            width: auto;
+            height: auto;
+
+            border-radius: 14px;
+
+            margin:
+                10px auto 0;
+
+            object-fit: cover;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+        }
+
+
+        /* ================================
+           INPUT AREA
+        ================================= */
+
+        .input-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                15px 18px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            background:
+                rgba(20, 20, 30, 0.30);
+        }
+
+
+        /* ================================
+           IMAGE BUTTON
+        ================================= */
+
+        #imageButton {
+
+            width: 52px;
+            height: 52px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            font-size: 21px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            color: white;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        #imageButton:hover {
+
+            transform:
+                scale(1.08);
+
+            background:
+                rgba(255, 255, 255, 0.20);
+        }
+
+
+        /* ================================
+           TEXT INPUT
+        ================================= */
+
+        #messageInput {
+
+            flex: 1;
+
+            height: 52px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 28px;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            color: white;
+
+            font-size: 15px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+        }
+
+
+        #messageInput::placeholder {
+
+            color:
+                rgba(255, 255, 255, 0.70);
+        }
+
+
+        /* ================================
+           SEND BUTTON
+        ================================= */
+
+        #sendButton {
+
+            width: 52px;
+            height: 52px;
+
+            flex-shrink: 0;
+
+            border: none;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e46b8c,
+                    #b74d83
+                );
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        #sendButton:hover {
+
+            transform:
+                scale(1.08);
+        }
+
+
+        #sendButton:disabled {
+
+            opacity: 0.5;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* ================================
+           SCROLLBAR
+        ================================= */
+
+        .messages::-webkit-scrollbar {
+
+            width: 6px;
+        }
+
+
+        .messages::-webkit-scrollbar-track {
+
+            background: transparent;
+        }
+
+
+        .messages::-webkit-scrollbar-thumb {
+
+            background:
+                rgba(255, 255, 255, 0.25);
+
+            border-radius: 10px;
+        }
+
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            .chat-container {
+
+                width: 96%;
+
+                height: 92vh;
+
+                border-radius: 18px;
+            }
+
+
+            .chat-header h1 {
+
+                font-size: 24px;
+            }
+
+
+            .chat-header p {
+
+                font-size: 13px;
+            }
+
+
+            .message {
+
+                max-width: 82%;
+            }
+
+
+            .messages {
+
+                padding: 18px;
+            }
+
+
+            .input-area {
+
+                padding: 12px;
+            }
+
+
+            #imageButton,
+            #sendButton {
+
+                width: 48px;
+                height: 48px;
+            }
+
+
+            #messageInput {
+
+                height: 48px;
+
+                font-size: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="chat-container">
+
+
+        <!-- ================================
+             HEADER
+        ================================= -->
+
+        <div class="chat-header">
+
+            <h1>
+                ♡ HUMSAFAR
+            </h1>
+
+            <p>
+                An AI Companion for Life's Difficult Moments
+            </p>
+
+        </div>
+
+
+        <!-- ================================
+             MESSAGES
+        ================================= -->
+
+        <div
+            id="messages"
+            class="messages"
+        >
+        </div>
+
+
+        <!-- ================================
+             INPUT
+        ================================= -->
+
+        <div class="input-area">
+
+
+            <!-- IMAGE BUTTON -->
+
+            <label
+                for="imageInput"
+                id="imageButton"
+                title="Upload an image"
+            >
+                📷
+            </label>
+
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                hidden
+            >
+
+
+            <!-- TEXT -->
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Talk to HUMSAFAR..."
+                autocomplete="off"
+            >
+
+
+            <!-- SEND -->
+
+            <button
+                id="sendButton"
+                type="button"
+            >
+                ➤
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* ================================
+           DOM ELEMENTS
+        ================================= */
+
+        const input =
+            document.getElementById(
+                "messageInput"
+            );
+
+
+        const messages =
+            document.getElementById(
+                "messages"
+            );
+
+
+        const imageInput =
+            document.getElementById(
+                "imageInput"
+            );
+
+
+        const sendButton =
+            document.getElementById(
+                "sendButton"
+            );
+
+
+        /* ================================
+           CONVERSATION ID
+        ================================= */
+
+        let conversationId =
+            localStorage.getItem(
+                "humsafar_conversation_id"
+            );
+
+
+        if (!conversationId) {
+
+            conversationId =
+                crypto.randomUUID();
+
+            localStorage.setItem(
+                "humsafar_conversation_id",
+                conversationId
+            );
+        }
+
+
+        /* ================================
+           ESCAPE HTML
+        ================================= */
+
+        function escapeHtml(text) {
+
+            return text
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+        }
+
+
+        /* ================================
+           INLINE MARKDOWN
+        ================================= */
+
+        function formatInline(text) {
+
+            return escapeHtml(text)
+
+                .replace(
+                    /\*\*(.+?)\*\*/g,
+                    "<strong>$1</strong>"
+                );
+        }
+
+
+        /* ================================
+           FORMAT AI RESPONSE
+        ================================= */
+
+        function formatAIResponse(text) {
+
+            const lines =
+                text.split(/\r?\n/);
+
+            let html = "";
+
+            let inOrderedList = false;
+
+            let inUnorderedList = false;
+
+
+            function closeLists() {
+
+                if (inOrderedList) {
+
+                    html += "</ol>";
+
+                    inOrderedList = false;
+                }
+
+
+                if (inUnorderedList) {
+
+                    html += "</ul>";
+
+                    inUnorderedList = false;
+                }
+            }
+
+
+            for (const rawLine of lines) {
+
+                const line =
+                    rawLine.trim();
+
+
+                /* Empty line */
+
+                if (!line) {
+
+                    closeLists();
+
+                    continue;
+                }
+
+
+                /* Numbered item */
+
+                const numbered =
+                    line.match(
+                        /^\d+\.\s+(.*)$/
+                    );
+
+
+                /* Bullet item */
+
+                const bullet =
+                    line.match(
+                        /^[-*]\s+(.*)$/
+                    );
+
+
+                /* Numbered list */
+
+                if (numbered) {
+
+                    if (inUnorderedList) {
+
+                        html += "</ul>";
+
+                        inUnorderedList = false;
+                    }
+
+
+                    if (!inOrderedList) {
+
+                        html += "<ol>";
+
+                        inOrderedList = true;
+                    }
+
+
+                    html +=
+                        "<li>" +
+                        formatInline(numbered[1]) +
+                        "</li>";
+                }
+
+
+                /* Bullet list */
+
+                else if (bullet) {
+
+                    if (inOrderedList) {
+
+                        html += "</ol>";
+
+                        inOrderedList = false;
+                    }
+
+
+                    if (!inUnorderedList) {
+
+                        html += "<ul>";
+
+                        inUnorderedList = true;
+                    }
+
+
+                    html +=
+                        "<li>" +
+                        formatInline(bullet[1]) +
+                        "</li>";
+                }
+
+
+                /* Normal paragraph */
+
+                else {
+
+                    closeLists();
+
+                    html +=
+                        "<p>" +
+                        formatInline(line) +
+                        "</p>";
+                }
+            }
+
+
+            closeLists();
+
+
+            return html;
+        }
+
+
+        /* ================================
+           ADD MESSAGE
+        ================================= */
+
+        function addMessage(
+            text,
+            role
+        ) {
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+
+            message.className =
+                "message " +
+                (
+                    role === "user"
+                        ? "user-message"
+                        : "ai-message"
+                );
+
+
+            const textElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            if (role === "ai") {
+
+                textElement.className =
+                    "ai-content";
+
+
+                textElement.innerHTML =
+                    formatAIResponse(text);
+            }
+
+
+            else {
+
+                textElement.textContent =
+                    text;
+            }
+
+
+            message.appendChild(
+                textElement
+            );
+
+
+            messages.appendChild(
+                message
+            );
+
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        /* ================================
+           ADD USER MESSAGE
+        ================================= */
+
+        function addUserMessage(
+            text,
+            imageFile
+        ) {
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+
+            message.className =
+                "message user-message";
+
+
+            /* TEXT */
+
+            if (text) {
+
+                const textElement =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                textElement.textContent =
+                    text;
+
+
+                message.appendChild(
+                    textElement
+                );
+            }
+
+
+            /* IMAGE */
+
+            if (imageFile) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                image.className =
+                    "user-image";
+
+
+                image.src =
+                    URL.createObjectURL(
+                        imageFile
+                    );
+
+
+                image.alt =
+                    "Uploaded image";
+
+
+                message.appendChild(
+                    image
+                );
+            }
+
+
+            messages.appendChild(
+                message
+            );
+
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        /* ================================
+           SEND MESSAGE
+        ================================= */
+
+        async function sendMessage() {
+
+            const text =
+                input.value.trim();
+
+
+            const imageFile =
+                imageInput.files[0];
+
+
+            /* Nothing entered */
+
+            if (!text && !imageFile) {
+
+                return;
+            }
+
+
+            /* Display user message */
+
+            addUserMessage(
+                text,
+                imageFile
+            );
+
+
+            /* Clear input */
+
+            input.value = "";
+
+            imageInput.value = "";
+
+
+            /* Disable send */
+
+            sendButton.disabled =
+                true;
+
+
+            try {
+
+                /* Create form data */
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "message",
+                    text
+                );
+
+
+                formData.append(
+                    "conversation_id",
+                    conversationId
+                );
+
+
+                /* Add image */
+
+                if (imageFile) {
+
+                    formData.append(
+                        "image",
+                        imageFile
+                    );
+                }
+
+
+                /* Send request */
+
+                const response =
+                    await fetch(
+                        "/chat",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /* Error */
+
+                if (!response.ok) {
+
+                    addMessage(
+
+                        data.error ||
+                        "Something went wrong.",
+
+                        "ai"
+                    );
+
+                    return;
+                }
+
+
+                /* AI response */
+
+                if (data.response) {
+
+                    addMessage(
+                        data.response,
+                        "ai"
+                    );
+                }
+
+
+                else {
+
+                    addMessage(
+
+                        "I'm here with you. Please tell me more.",
+
+                        "ai"
+                    );
+                }
+
+
+                /* Update conversation ID */
+
+                if (data.conversation_id) {
+
+                    conversationId =
+                        data.conversation_id;
+
+
+                    localStorage.setItem(
+
+                        "humsafar_conversation_id",
+
+                        conversationId
+                    );
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Chat error:",
+                    error
+                );
+
+
+                addMessage(
+
+                    "I'm having trouble responding right now. Please try again.",
+
+                    "ai"
+                );
+            }
+
+
+            finally {
+
+                sendButton.disabled =
+                    false;
+
+                input.focus();
+            }
+        }
+
+
+        /* ================================
+           SEND BUTTON
+        ================================= */
+
+        sendButton.addEventListener(
+            "click",
+            sendMessage
+        );
+
+
+        /* ================================
+           ENTER KEY
+        ================================= */
+
+        input.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    sendMessage();
+                }
+            }
+        );
+
+
+        /* ================================
+           IMAGE SELECTION
+        ================================= */
+
+        imageInput.addEventListener(
+            "change",
+            function() {
+
+                const imageFile =
+                    imageInput.files[0];
+
+
+                if (imageFile) {
+
+                    input.focus();
+                }
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+

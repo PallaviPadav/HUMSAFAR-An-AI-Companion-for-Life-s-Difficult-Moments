@@ -1,0 +1,17 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("HUMSAFAR is ready 🌱");
+
+    const buttons = document.querySelectorAll(".primary-button");
+
+    buttons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            console.log("Starting HUMSAFAR conversation...");
+
+        });
+
+    });
+
+});

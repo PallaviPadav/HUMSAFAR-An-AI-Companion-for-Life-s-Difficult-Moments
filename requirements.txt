@@ -1,0 +1,9 @@
+Flask
+LangChain
+LangGraph
+Pydantic
+python-dotenv
+langchain-groq 
+langchain-core
+langchain-community
+langgraph-checkpoint-sqlite
