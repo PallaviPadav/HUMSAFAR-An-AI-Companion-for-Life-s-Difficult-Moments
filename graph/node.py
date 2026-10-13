@@ -18,6 +18,9 @@ from graph.supervisor import supervisor_agent
 from agents.hobby_agent import hobby_agent
 from agents.recommendation_agent import recommendation_agent
 from agents.inspiration_agent import inspiration_agent
+from langchain_core.runnables import RunnableConfig
+from services.preference_memory import update_preferences
+from services.reviewer_agent import reviewer_agent
 
 logger = get_logger(__name__)
 
@@ -135,8 +138,11 @@ def emergency_node(state: ConversationState):
     logger.warning("CRISIS INPUT DETECTED")
 
     response = emergency_response()
-
-    return {"messages": [AIMessage(content=response)], "safety_message": response}
+    return {
+        "messages": [AIMessage(content=response)],
+        "safety_message": response,
+        "final_response": response,
+    }
 
 
 def output_guardrail_node(state: ConversationState):
@@ -189,6 +195,11 @@ def supervisor_node(state: ConversationState):
         "current_intent": decision.reason,
         "selected_agent": decision.agent,
         "task_state": decision.task_state,
+        "inspirational_videos": (
+            state.get("inspirational_videos", [])
+            if decision.agent == "inspirational"
+            else []
+        ),
     }
 
 
@@ -255,13 +266,74 @@ def inspiration_agent_node(state: ConversationState):
 
     user_msg = state["messages"][-1].content
 
-    response = inspiration_agent(user_msg)
+    result = inspiration_agent(user_msg)
 
     logger.info("Inspirational Agent response generated")
 
-    if hasattr(response, "content"):
-        response = response.content
+    response = result.get("response", "")
+    videos = result.get("videos", [])
 
     logger.info("Inspirational Agent final response: %s", response)
 
-    return {"final_response": response}
+    logger.info("Inspirational videos retrieved: %d", len(videos))
+
+    return {
+        "final_response": response,
+        "inspirational_videos": videos,
+    }
+
+
+def preference_memory_node(state: ConversationState, config: RunnableConfig):
+    logger.info("Preference Memory Node started")
+
+    conversation_id = config["configurable"]["thread_id"]
+
+    user_msg = state["messages"][-1].content
+
+    logger.info("Conversation ID for preference memory: %s", conversation_id)
+
+    logger.info("User message for preference extraction: %s", user_msg)
+
+    preferences, extracted = update_preferences(
+        conversation_id=conversation_id, user_message=user_msg
+    )
+
+    logger.info("Current user preferences: %s", preferences)
+
+    logger.info("Latest preference extraction: %s", extracted)
+
+    return {
+        "user_preferences": preferences,
+        "preference_updates": extracted.model_dump(),
+    }
+
+
+def reviewer_agent_node(state: ConversationState):
+    logger.info("Reviewer Agent Node started")
+
+    user_msg = state["messages"][-1].content
+
+    generated_response = state.get("final_response", "")
+
+    if isinstance(generated_response, dict):
+        generated_response = generated_response.get("message", str(generated_response))
+    elif hasattr(generated_response, "content"):
+        generated_response = generated_response.content
+
+    user_preferences = state.get("user_preferences", {})
+
+    logger.info("Response received for review: %s", generated_response)
+
+    review_result = reviewer_agent.review(
+        user_message=user_msg,
+        response=generated_response,
+        user_preferences=user_preferences,
+    )
+
+    logger.info("Reviewer approved: %s", review_result.approved)
+
+    logger.info("Reviewer feedback: %s", review_result.feedback)
+
+    logger.info("Reviewer revised response: %s", review_result.revised_response)
+
+    return {"final_response": review_result.revised_response}

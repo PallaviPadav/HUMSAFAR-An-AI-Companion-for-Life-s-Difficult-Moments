@@ -75,6 +75,7 @@ def emergency_response():
         "If you feel you may hurt yourself or are in immediate danger, "
         "please contact your local emergency service or go to the nearest "
         "emergency department now.\n\n"
+        "You can also call Tele-MANAS at 14416, a 24/7 mental-health support service.\n\n"
         "If possible, please stay with someone you trust and tell them "
         "what you're experiencing."
     )

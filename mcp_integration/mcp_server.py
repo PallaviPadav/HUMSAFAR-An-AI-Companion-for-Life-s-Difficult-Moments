@@ -1,10 +1,13 @@
+import sys
 from mcp.server.mcpserver import MCPServer
 
 from services.movie_recommendation_service import (
     get_movie_recommendations_with_fallback,
 )
 from services.tmdb_service import search_movie_candidates
-
+from services.youtube_service import (
+    search_inspirational_videos as search_youtube_videos,
+)
 
 mcp = MCPServer(
     name="HUMSAFAR",
@@ -84,6 +87,44 @@ def search_movies(query: str, limit: int = 5) -> list[dict]:
     )
 
     return [movie.model_dump() for movie in movies]
+
+
+@mcp.tool()
+def search_inspirational_videos(
+    query: str,
+    limit: int = 5,
+) -> list[dict]:
+    """
+    Search YouTube for short inspirational videos.
+
+    Returns video titles, descriptions, channel names,
+    thumbnails, YouTube links and embed links.
+
+    This tool can help HUMSAFAR find videos relevant
+    to the user's situation, such as interview setbacks,
+    career challenges, self-doubt or personal growth.
+    """
+
+    try:
+        videos = search_youtube_videos(
+            query=query,
+            limit=limit,
+        )
+
+        if videos:
+            return videos
+
+        return search_youtube_videos(
+            query="inspirational stories overcoming challenges",
+            limit=limit,
+        )
+
+    except Exception as e:
+        print(
+            f"YouTube inspirational search failed: {e}",
+            file=sys.stderr,
+        )
+        raise
 
 
 if __name__ == "__main__":

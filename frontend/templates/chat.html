@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +12,6 @@
 
     <title>HUMSAFAR</title>
 
-
     <style>
 
         /* ================================
@@ -24,12 +22,9 @@
             box-sizing: border-box;
         }
 
-
         body {
-
             margin: 0;
             padding: 0;
-
             min-height: 100vh;
 
             display: flex;
@@ -60,10 +55,8 @@
         ================================= */
 
         .chat-container {
-
             width: 90%;
             max-width: 900px;
-
             height: 85vh;
 
             display: flex;
@@ -97,7 +90,6 @@
         ================================= */
 
         .chat-header {
-
             padding: 22px 25px;
 
             text-align: center;
@@ -107,13 +99,10 @@
                 rgba(255, 255, 255, 0.15);
         }
 
-
         .chat-header h1 {
-
             margin: 0;
 
             font-size: 30px;
-
             font-weight: 700;
 
             letter-spacing: 2px;
@@ -128,7 +117,6 @@
 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-
             background-clip: text;
 
             text-shadow:
@@ -136,13 +124,10 @@
                 rgba(255, 170, 170, 0.25);
         }
 
-
         .chat-header p {
-
             margin: 7px 0 0;
 
             font-size: 14px;
-
             font-weight: 400;
 
             letter-spacing: 0.4px;
@@ -161,7 +146,6 @@
         ================================= */
 
         .messages {
-
             flex: 1;
 
             padding: 25px;
@@ -169,7 +153,6 @@
             overflow-y: auto;
 
             display: flex;
-
             flex-direction: column;
 
             gap: 14px;
@@ -181,7 +164,6 @@
         ================================= */
 
         .message {
-
             max-width: 70%;
 
             padding: 12px 16px;
@@ -189,7 +171,6 @@
             border-radius: 18px;
 
             font-size: 15px;
-
             line-height: 1.5;
 
             word-wrap: break-word;
@@ -201,7 +182,6 @@
         /* USER */
 
         .user-message {
-
             align-self: flex-end;
 
             background:
@@ -218,7 +198,6 @@
         /* AI */
 
         .ai-message {
-
             align-self: flex-start;
 
             background:
@@ -243,58 +222,42 @@
         ================================= */
 
         .ai-content {
-
             line-height: 1.6;
         }
 
-
         .ai-content p {
-
             margin:
                 0 0 12px;
         }
 
-
         .ai-content p:last-child {
-
             margin-bottom: 0;
         }
 
-
         .ai-content ol {
-
             margin:
                 8px 0 14px;
 
             padding-left: 24px;
         }
-
 
         .ai-content ul {
-
             margin:
                 8px 0 14px;
 
             padding-left: 24px;
         }
 
-
         .ai-content li {
-
             margin-bottom: 10px;
-
             padding-left: 3px;
         }
 
-
         .ai-content li:last-child {
-
             margin-bottom: 0;
         }
 
-
         .ai-content strong {
-
             font-weight: 600;
 
             color:
@@ -307,7 +270,6 @@
         ================================= */
 
         .user-image {
-
             display: block;
 
             max-width: 220px;
@@ -330,11 +292,103 @@
 
 
         /* ================================
+           INSPIRATIONAL VIDEOS
+        ================================= */
+
+        .video-section {
+            width: 100%;
+            max-width: 700px;
+
+            align-self: flex-start;
+
+            margin-top: 0;
+        }
+
+        .video-section-title {
+            margin-bottom: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color:
+                #ffe1e8;
+        }
+
+        .video-card {
+            margin-top: 12px;
+
+            padding: 10px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255, 255, 255, 0.10);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+        }
+
+        .video-card iframe {
+            display: block;
+
+            width: 100%;
+            height: 220px;
+
+            border: none;
+
+            border-radius: 10px;
+        }
+
+        .video-card-title {
+            margin-top: 9px;
+
+            font-size: 14px;
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            color: white;
+        }
+
+        .video-card-channel {
+            margin-top: 4px;
+
+            font-size: 12px;
+
+            color:
+                rgba(255, 255, 255, 0.70);
+        }
+
+        .video-card-link {
+            display: inline-block;
+
+            margin-top: 7px;
+
+            font-size: 12px;
+
+            color:
+                #ffd6e0;
+
+            text-decoration: none;
+        }
+
+        .video-card-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ================================
            INPUT AREA
         ================================= */
 
         .input-area {
-
             display: flex;
 
             align-items: center;
@@ -358,7 +412,6 @@
         ================================= */
 
         #imageButton {
-
             width: 52px;
             height: 52px;
 
@@ -385,9 +438,7 @@
                 background 0.2s ease;
         }
 
-
         #imageButton:hover {
-
             transform:
                 scale(1.08);
 
@@ -401,7 +452,6 @@
         ================================= */
 
         #messageInput {
-
             flex: 1;
 
             height: 52px;
@@ -427,9 +477,7 @@
                 rgba(255, 255, 255, 0.12);
         }
 
-
         #messageInput::placeholder {
-
             color:
                 rgba(255, 255, 255, 0.70);
         }
@@ -440,7 +488,6 @@
         ================================= */
 
         #sendButton {
-
             width: 52px;
             height: 52px;
 
@@ -468,16 +515,12 @@
                 opacity 0.2s ease;
         }
 
-
         #sendButton:hover {
-
             transform:
                 scale(1.08);
         }
 
-
         #sendButton:disabled {
-
             opacity: 0.5;
 
             cursor: not-allowed;
@@ -491,19 +534,14 @@
         ================================= */
 
         .messages::-webkit-scrollbar {
-
             width: 6px;
         }
 
-
         .messages::-webkit-scrollbar-track {
-
             background: transparent;
         }
 
-
         .messages::-webkit-scrollbar-thumb {
-
             background:
                 rgba(255, 255, 255, 0.25);
 
@@ -518,58 +556,49 @@
         @media (max-width: 600px) {
 
             .chat-container {
-
                 width: 96%;
-
                 height: 92vh;
 
                 border-radius: 18px;
             }
 
-
             .chat-header h1 {
-
                 font-size: 24px;
             }
 
-
             .chat-header p {
-
                 font-size: 13px;
             }
 
-
             .message {
-
                 max-width: 82%;
             }
 
-
             .messages {
-
                 padding: 18px;
             }
 
-
             .input-area {
-
                 padding: 12px;
             }
 
-
             #imageButton,
             #sendButton {
-
                 width: 48px;
                 height: 48px;
             }
 
-
             #messageInput {
-
                 height: 48px;
-
                 font-size: 14px;
+            }
+
+            .video-section {
+                max-width: 100%;
+            }
+
+            .video-card iframe {
+                height: 190px;
             }
         }
 
@@ -579,7 +608,6 @@
 
 
 <body>
-
 
     <div class="chat-container">
 
@@ -657,7 +685,6 @@
                 ➤
             </button>
 
-
         </div>
 
     </div>
@@ -674,18 +701,15 @@
                 "messageInput"
             );
 
-
         const messages =
             document.getElementById(
                 "messages"
             );
 
-
         const imageInput =
             document.getElementById(
                 "imageInput"
             );
-
 
         const sendButton =
             document.getElementById(
@@ -701,7 +725,6 @@
             localStorage.getItem(
                 "humsafar_conversation_id"
             );
-
 
         if (!conversationId) {
 
@@ -722,27 +745,22 @@
         function escapeHtml(text) {
 
             return text
-
                 .replace(
                     /&/g,
                     "&amp;"
                 )
-
                 .replace(
                     /</g,
                     "&lt;"
                 )
-
                 .replace(
                     />/g,
                     "&gt;"
                 )
-
                 .replace(
                     /"/g,
                     "&quot;"
                 )
-
                 .replace(
                     /'/g,
                     "&#039;"
@@ -757,7 +775,6 @@
         function formatInline(text) {
 
             return escapeHtml(text)
-
                 .replace(
                     /\*\*(.+?)\*\*/g,
                     "<strong>$1</strong>"
@@ -777,7 +794,6 @@
             let html = "";
 
             let inOrderedList = false;
-
             let inUnorderedList = false;
 
 
@@ -789,7 +805,6 @@
 
                     inOrderedList = false;
                 }
-
 
                 if (inUnorderedList) {
 
@@ -902,7 +917,6 @@
 
             closeLists();
 
-
             return html;
         }
 
@@ -942,11 +956,9 @@
                 textElement.className =
                     "ai-content";
 
-
                 textElement.innerHTML =
                     formatAIResponse(text);
             }
-
 
             else {
 
@@ -998,10 +1010,8 @@
                         "div"
                     );
 
-
                 textElement.textContent =
                     text;
-
 
                 message.appendChild(
                     textElement
@@ -1018,20 +1028,16 @@
                         "img"
                     );
 
-
                 image.className =
                     "user-image";
-
 
                 image.src =
                     URL.createObjectURL(
                         imageFile
                     );
 
-
                 image.alt =
                     "Uploaded image";
-
 
                 message.appendChild(
                     image
@@ -1041,6 +1047,189 @@
 
             messages.appendChild(
                 message
+            );
+
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        /* ================================
+           ADD INSPIRATIONAL VIDEOS
+        ================================= */
+
+        function addInspirationalVideos(
+            videos
+        ) {
+
+            if (
+                !videos ||
+                !Array.isArray(videos) ||
+                videos.length === 0
+            ) {
+                return;
+            }
+
+
+            const section =
+                document.createElement(
+                    "div"
+                );
+
+            section.className =
+                "video-section";
+
+
+            const title =
+                document.createElement(
+                    "div"
+                );
+
+            title.className =
+                "video-section-title";
+
+            title.textContent =
+                "🎬 You might find these helpful";
+
+
+            section.appendChild(
+                title
+            );
+
+
+            videos.forEach(
+                function(video) {
+
+                    if (
+                        !video ||
+                        !video.embed_url
+                    ) {
+                        return;
+                    }
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+                    card.className =
+                        "video-card";
+
+
+                    /* VIDEO */
+
+                    const iframe =
+                        document.createElement(
+                            "iframe"
+                        );
+
+                    iframe.src =
+                        video.embed_url;
+
+                    iframe.title =
+                        video.title ||
+                        "Inspirational video";
+
+                    iframe.setAttribute(
+                        "allow",
+                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    );
+
+                    iframe.setAttribute(
+                        "allowfullscreen",
+                        ""
+                    );
+
+
+                    card.appendChild(
+                        iframe
+                    );
+
+
+                    /* TITLE */
+
+                    const videoTitle =
+                        document.createElement(
+                            "div"
+                        );
+
+                    videoTitle.className =
+                        "video-card-title";
+
+                    videoTitle.textContent =
+                        video.title ||
+                        "Inspirational video";
+
+
+                    card.appendChild(
+                        videoTitle
+                    );
+
+
+                    /* CHANNEL */
+
+                    const channel =
+                        document.createElement(
+                            "div"
+                        );
+
+                    channel.className =
+                        "video-card-channel";
+
+                    channel.textContent =
+                        video.channel
+                            ? "Channel: " +
+                              video.channel
+                            : "";
+
+
+                    card.appendChild(
+                        channel
+                    );
+
+
+                    /* YOUTUBE LINK */
+
+                    if (video.video_url) {
+
+                        const link =
+                            document.createElement(
+                                "a"
+                            );
+
+                        link.className =
+                            "video-card-link";
+
+                        link.href =
+                            video.video_url;
+
+                        link.target =
+                            "_blank";
+
+                        link.rel =
+                            "noopener noreferrer";
+
+                        link.textContent =
+                            "Watch on YouTube ↗";
+
+
+                        card.appendChild(
+                            link
+                        );
+                    }
+
+
+                    section.appendChild(
+                        card
+                    );
+                }
+            );
+
+
+            messages.appendChild(
+                section
             );
 
 
@@ -1065,8 +1254,10 @@
 
             /* Nothing entered */
 
-            if (!text && !imageFile) {
-
+            if (
+                !text &&
+                !imageFile
+            ) {
                 return;
             }
 
@@ -1144,10 +1335,8 @@
                 if (!response.ok) {
 
                     addMessage(
-
                         data.error ||
                         "Something went wrong.",
-
                         "ai"
                     );
 
@@ -1155,7 +1344,9 @@
                 }
 
 
-                /* AI response */
+                /* ================================
+                   AI RESPONSE
+                ================================= */
 
                 if (data.response) {
 
@@ -1163,32 +1354,44 @@
                         data.response,
                         "ai"
                     );
-                }
 
+                }
 
                 else {
 
                     addMessage(
-
                         "I'm here with you. Please tell me more.",
-
                         "ai"
                     );
                 }
 
 
-                /* Update conversation ID */
+                /* ================================
+                   INSPIRATIONAL VIDEOS
+                ================================= */
+
+                if (
+                    data.inspirational_videos &&
+                    data.inspirational_videos.length > 0
+                ) {
+
+                    addInspirationalVideos(
+                        data.inspirational_videos
+                    );
+                }
+
+
+                /* ================================
+                   UPDATE CONVERSATION ID
+                ================================= */
 
                 if (data.conversation_id) {
 
                     conversationId =
                         data.conversation_id;
 
-
                     localStorage.setItem(
-
                         "humsafar_conversation_id",
-
                         conversationId
                     );
                 }
@@ -1205,9 +1408,7 @@
 
 
                 addMessage(
-
                     "I'm having trouble responding right now. Please try again.",
-
                     "ai"
                 );
             }
@@ -1265,7 +1466,6 @@
                 const imageFile =
                     imageInput.files[0];
 
-
                 if (imageFile) {
 
                     input.focus();
@@ -1278,4 +1478,3 @@
 </body>
 
 </html>
-

@@ -7,15 +7,6 @@ from utils.cleanup import remove_thinking
 logger = get_logger(__name__)
 logger.info("Creating ConversationService")
 
-from graph.workflow import graph
-from langchain_core.messages import HumanMessage, AIMessage
-from utils.logger import get_logger
-from utils.cleanup import remove_thinking
-
-
-logger = get_logger(__name__)
-logger.info("Creating ConversationService")
-
 
 class ConversationService:
     def __init__(self):
@@ -50,13 +41,37 @@ class ConversationService:
             logger.error("Agent returned an empty final_response.")
 
             final_response = (
-                "I'm here with you. You don't have to go through "
-                "this moment alone. Would you like to tell me a little "
-                "about what has been making you feel sad or lonely?"
+                "I'm here with you. "
+                "You don't have to go through "
+                "this moment alone. Would you like "
+                "to tell me a little about what has "
+                "been making you feel sad or lonely?"
             )
 
         clean_response = remove_thinking(final_response)
 
+        # --------------------------------------------------
+        # Get inspirational videos
+        # --------------------------------------------------
+
+        inspirational_videos = result.get("inspirational_videos", [])
+
+        if not isinstance(inspirational_videos, list):
+            logger.warning(
+                "Unexpected inspirational_videos type: %s", type(inspirational_videos)
+            )
+
+            inspirational_videos = []
+
+        logger.info("Inspirational videos available: %d", len(inspirational_videos))
+
         logger.info("Response from ConversationService: %s", clean_response)
 
-        return clean_response
+        # --------------------------------------------------
+        # Return response + optional videos
+        # --------------------------------------------------
+
+        return {
+            "response": clean_response,
+            "inspirational_videos": inspirational_videos,
+        }

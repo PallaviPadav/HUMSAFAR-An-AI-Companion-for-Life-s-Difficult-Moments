@@ -37,3 +37,5 @@ class ConversationState(TypedDict, total=False):
     task_state: Literal["in_progress", "completed"]
 
     final_response: Optional[str]
+
+    inspirational_videos: list[dict]

@@ -72,6 +72,7 @@ def chat_page():
 @app.route("/chat", methods=["POST"])
 def chat_message():
     logger.info("Inside chat message")
+    inspirational_videos = []
 
     # =====================================================
     # GET TEXT MESSAGE
@@ -154,17 +155,28 @@ def chat_message():
         else:
             logger.info("Processing normal text message")
 
-            response = conversation_service.respond(
+            conversation_result = conversation_service.respond(
                 user_message=user_message, conversation_id=conversation_id
             )
 
+            response = conversation_result.get("response", "")
+
+            inspirational_videos = conversation_result.get("inspirational_videos", [])
+
             logger.info("Response from ConversationService: %s", response)
 
+            logger.info("Inspirational videos returned: %d", len(inspirational_videos))
         # =================================================
         # RETURN RESPONSE TO JAVASCRIPT
         # =================================================
 
-        return jsonify({"response": response, "conversation_id": conversation_id})
+        return jsonify(
+            {
+                "response": response,
+                "conversation_id": conversation_id,
+                "inspirational_videos": inspirational_videos,
+            }
+        )
 
     # =====================================================
     # ERROR HANDLING

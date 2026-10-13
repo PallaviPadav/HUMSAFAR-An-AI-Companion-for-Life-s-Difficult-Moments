@@ -14,6 +14,8 @@ from graph.node import (
     activities_agent_node,
     recommendation_agent_node,
     inspiration_agent_node,
+    preference_memory_node,
+    reviewer_agent_node,
 )
 
 
@@ -31,6 +33,8 @@ builder.add_node("hobby_agent_node", hobby_agent_node)
 builder.add_node("activities_agent_node", activities_agent_node)
 builder.add_node("recommendation_agent_node", recommendation_agent_node)
 builder.add_node("inspiration_agent_node", inspiration_agent_node)
+builder.add_node("preference_memory_node", preference_memory_node)
+builder.add_node("reviewer_agent_node", reviewer_agent_node)
 
 
 def route_after_supervisor(state: ConversationState):
@@ -70,11 +74,42 @@ builder.add_conditional_edges(
         "inspirational": "inspiration_agent_node",
     },
 )
-builder.add_edge("conversational_agent_node", "output_guardrail")
-builder.add_edge("hobby_agent_node", "output_guardrail")
-builder.add_edge("activities_agent_node", "output_guardrail")
-builder.add_edge("recommendation_agent_node", "output_guardrail")
-builder.add_edge("inspiration_agent_node", "output_guardrail")
+
+builder.add_edge(
+    "conversational_agent_node",
+    "reviewer_agent_node",
+)
+
+builder.add_edge(
+    "hobby_agent_node",
+    "reviewer_agent_node",
+)
+
+builder.add_edge(
+    "activities_agent_node",
+    "reviewer_agent_node",
+)
+
+builder.add_edge(
+    "recommendation_agent_node",
+    "reviewer_agent_node",
+)
+
+builder.add_edge(
+    "inspiration_agent_node",
+    "reviewer_agent_node",
+)
+
+builder.add_edge(
+    "reviewer_agent_node",
+    "preference_memory_node",
+)
+
+builder.add_edge(
+    "preference_memory_node",
+    "output_guardrail",
+)
+
 builder.add_edge("output_guardrail", END)
 builder.add_edge("emergency_gaurdrail", END)
 
